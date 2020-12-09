@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TrendingGithubRepo">
-        <activity android:name=".view.TrendingListActivity"></activity>
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.MainActivity"></activity>
+        <activity android:name=".view.TrendingListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

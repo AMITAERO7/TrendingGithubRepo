@@ -15,6 +15,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -84,6 +85,9 @@ dependencies {
     implementation "androidx.core:core-ktx:$core_version"
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    implementation 'com.android.support:multidex:1.0.3'
+
 
 
 }
