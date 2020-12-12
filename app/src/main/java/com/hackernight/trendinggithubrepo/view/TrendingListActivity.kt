@@ -2,10 +2,13 @@ package com.hackernight.trendinggithubrepo.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -45,7 +48,7 @@ class TrendingListActivity : AppCompatActivity() {
         }
 
         swipeRefreshLayout.setOnRefreshListener {
-            viewModel.refresh()
+            viewModel.refreshByPassCache()
             swipeRefreshLayout.isRefreshing = false
         }
 
@@ -81,6 +84,25 @@ class TrendingListActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu,menu)
+        var menuItem  = menu!!.findItem(R.id.action_search)
+        var searchView : SearchView = menuItem.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                trendingListAdapter?.filter?.filter(newText)
+                return false
+            }
+        })
+
+        return super.onCreateOptionsMenu(menu)
     }
 
 }

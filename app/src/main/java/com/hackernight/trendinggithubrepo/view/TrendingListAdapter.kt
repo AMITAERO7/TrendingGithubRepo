@@ -3,12 +3,20 @@ package com.hackernight.trendinggithubrepo.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hackernight.trendinggithubrepo.R
 import com.hackernight.trendinggithubrepo.model.GithubEntity
 
-class TrendingListAdapter(val trendingList : ArrayList<GithubEntity>) : RecyclerView.Adapter<TrendingListAdapter.TrendingListViewHolder>() {
+class TrendingListAdapter(val trendingList : ArrayList<GithubEntity>) : RecyclerView.Adapter<TrendingListAdapter.TrendingListViewHolder>() ,Filterable{
+
+    var githubRepoFilterList = ArrayList<GithubEntity>()
+
+    init {
+        githubRepoFilterList = trendingList as ArrayList<GithubEntity>
+    }
 
     fun updateList(newTrendingList:List<GithubEntity>){
         trendingList.clear()
@@ -41,6 +49,36 @@ class TrendingListAdapter(val trendingList : ArrayList<GithubEntity>) : Recycler
         val language = itemView.findViewById<TextView>(R.id.language)
         val languageColor = itemView.findViewById<TextView>(R.id.languageColor)
         val stars = itemView.findViewById<TextView>(R.id.stars)
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charSearch = constraint.toString()
+                if (charSearch.isEmpty()) {
+                    githubRepoFilterList = trendingList as ArrayList<GithubEntity>
+                } else {
+                    val resultList = ArrayList<GithubEntity>()
+                    for (row in trendingList) {
+                        if (row.name!!.toLowerCase().contains(constraint.toString().toLowerCase())) {
+                            resultList.add(row)
+                        }
+                    }
+                    githubRepoFilterList = resultList
+                }
+                val filterResults = FilterResults()
+                filterResults.values = githubRepoFilterList
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                trendingList.clear()
+                trendingList.addAll(results!!.values as Collection<GithubEntity>)
+                //githubRepoFilterList = results?.values as ArrayList<GithubEntity>
+                notifyDataSetChanged()
+            }
+        }
     }
 
 }
