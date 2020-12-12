@@ -1,6 +1,7 @@
 package com.hackernight.trendinggithubrepo.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.hackernight.trendinggithubrepo.model.GithubEntity
 import com.hackernight.trendinggithubrepo.model.IGithubEntityDao
@@ -63,6 +64,7 @@ class TrendingListViewModel(application: Application) : BaseViewModel(applicatio
                                 trendingRepoError.value = true
                                 loading.value = false
                                 e.printStackTrace()
+                                Log.d("Loading Error", e.printStackTrace().toString())
                             }
                         })
         )

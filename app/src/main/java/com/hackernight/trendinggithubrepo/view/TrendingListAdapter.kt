@@ -1,10 +1,13 @@
 package com.hackernight.trendinggithubrepo.view
 
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hackernight.trendinggithubrepo.R
@@ -38,7 +41,7 @@ class TrendingListAdapter(val trendingList : ArrayList<GithubEntity>) : Recycler
         holder.name.text = trendingList[position].name
         holder.description.text = trendingList[position].description
         holder.language.text = trendingList[position].language
-        holder.languageColor.text = trendingList[position].languageColor
+        holder.languageColor.setBackgroundColor(Color.parseColor(trendingList[position].languageColor))
         holder.stars.text = trendingList[position].stars
     }
 
@@ -47,7 +50,7 @@ class TrendingListAdapter(val trendingList : ArrayList<GithubEntity>) : Recycler
         val name = itemView.findViewById<TextView>(R.id.name)
         val description = itemView.findViewById<TextView>(R.id.description)
         val language = itemView.findViewById<TextView>(R.id.language)
-        val languageColor = itemView.findViewById<TextView>(R.id.languageColor)
+        val languageColor = itemView.findViewById<ImageView>(R.id.languageColor)
         val stars = itemView.findViewById<TextView>(R.id.stars)
     }
 

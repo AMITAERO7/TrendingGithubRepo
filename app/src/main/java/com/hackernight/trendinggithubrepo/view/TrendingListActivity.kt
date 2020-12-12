@@ -1,6 +1,5 @@
 package com.hackernight.trendinggithubrepo.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,15 +7,16 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.hackernight.trendinggithubrepo.R
 import com.hackernight.trendinggithubrepo.viewmodel.TrendingListViewModel
+
 
 class TrendingListActivity : AppCompatActivity() {
 
@@ -51,6 +51,12 @@ class TrendingListActivity : AppCompatActivity() {
             viewModel.refreshByPassCache()
             swipeRefreshLayout.isRefreshing = false
         }
+
+        retry.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                viewModel.refreshByPassCache()
+            }
+        })
 
         observeViewModel()
 
@@ -104,5 +110,13 @@ class TrendingListActivity : AppCompatActivity() {
 
         return super.onCreateOptionsMenu(menu)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_search ){
+            viewModel.refresh()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
 }
